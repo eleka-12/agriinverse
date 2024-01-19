@@ -1,6 +1,7 @@
 import time
 import GPIO.GPIO as gpio
 
+
 class Relay:
 	def __init__(self,pin):
 		self.pin = pin

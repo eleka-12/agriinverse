@@ -1,6 +1,7 @@
 import RPI.GPIO as GPIO
 import time
 
+
 class GPIO:
 	def __init__(self,pin):
 		self.pin = pin
