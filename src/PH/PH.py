@@ -7,7 +7,7 @@ class PH:
 	long_timeout = 5
 	short_timeout = 5
 	default_bus = 1
-	default_address = 100
+	default_address = 99
 
 	def __init__(self,address=default_address,bus = default_bus):
 		self.file_read = io.open("/dev/i2c-" + str(bus), "rb" , buffering = 0)
