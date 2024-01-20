@@ -2,10 +2,12 @@ import os
 import time
 import thresholds.EC as ec
 import thresholds.PH as ph
+import constants as const
+
 
 def ec_logic(ec_obj,motor_obj:list):
 	## 2 driver object 1 obj 2 2 obj 1
-	if len(motor_obj) < 3:
+	if len(motor_obj) < const.ec_motors_size:
 		return "unsupported driver objects to enable motors"
 	##unloading threshold weights
 	thresolds = ec.threshold_dict
@@ -23,6 +25,26 @@ def ec_logic(ec_obj,motor_obj:list):
 
 	if diff_rate != None:
 		for idx,obj in enumerate(motor_obj):
-			obj.enable(thresholds[diff_rate][i]
+			obj.enable(thresholds[diff_rate][i])
+	return 0
 
+def ph_logic(ph_obj, motor_obj:list):
+	
+	acidic_pump_obj , basic_pump_obj = motor_obj
+	if len(motor_obj) < const.ph_motors_size:
+		return "Unsupported driver objects to enable motor"
+	
+	thresholds = ph.threshold_dict
+	ph_value = ph_obj.query("R")
+	ph_diff = None
 
+	if ph_diff < 5.5:
+		basic_pump_obj.enable(thresholds[ph_diff][0])
+
+	elif ph_diff > 6.5:
+		acidic_pump_obj.enable(thresholds[ph_diff][1])
+
+	else:
+		print("PH solution is in good state")
+
+	return 0
