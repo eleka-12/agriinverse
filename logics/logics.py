@@ -3,7 +3,7 @@ import time
 import thresholds.EC as ec
 import thresholds.PH as ph
 import constants as const
-
+import utils.utilities as util
 
 def ec_logic(ec_obj,motor_obj:list):
 	## 2 driver object 1 obj 2 2 obj 1
@@ -48,3 +48,27 @@ def ph_logic(ph_obj, motor_obj:list):
 		print("PH solution is in good state")
 
 	return 0
+
+
+
+def dht_logic(dht_obj:list , relay_humidifier_obj, relay_dehumidifier_obj):
+	
+	avg_temperature , avg_humidity = 0 , 0
+
+	for obj in dht_obj:
+		dht_reading = obj.read()
+		avg_temperature += dht_reading[0]
+		avg_humidity += dht_reading[1]
+
+	vpd_value = util.calculate_vpd(avg_temperature,avg_humidity)
+	if vpd_value > 1.3:
+		relay_humidifier_obj.toggle_high()
+
+	elif vpd_value < 0.8:
+		relay_dehumidifier_obj.toggle_high()
+	else:
+		relay_humidifier_obj.toggle_low()
+		relay_dehumidifier_obj.toggle_low()
+
+	return 0
+	

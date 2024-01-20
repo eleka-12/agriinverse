@@ -9,3 +9,12 @@ def calculate_vpd(temp:float,humid:float) -> float:
 	vpd_calc = 1 - ( humid /100)
 	vpd = svp * vpd_calc
 	return vpd
+
+def get_average(values = [] ):
+	sum_of_values = 0
+	for value in values:
+		sum_of_values += 1
+	return sum_of_values
+
+
+	
