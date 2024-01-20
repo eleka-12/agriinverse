@@ -1,5 +1,6 @@
 import os
 import math
+from datetime import datetime
 
 def calculate_vpd(temp:float,humid:float) -> float:
 	## function to calculate vpd from the temperature and humidity values from DHT sensor
@@ -17,4 +18,10 @@ def get_average(values = [] ):
 	return sum_of_values
 
 
-	
+def get_curr_time():
+	dt = datetime.now()
+	hour = dt.hour
+	minutes = dt.minute
+	seconds = dt.second
+	return (hour,minutes,seconds)
+
