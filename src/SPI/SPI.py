@@ -18,8 +18,13 @@ class MCP3008:
 		return channel_out.value,channel_out.voltage
 	
 	def _get_pin(self,pin_from_usr):
+		default = MCP.P0
 		if pin_from_usr > 8:
 			return "invalid input pin"
-		return "P"+str(pin_from_usr)
+		if str(pin_from_usr) == "0":
+			return MCP.P0
+		if str(pin_from_usr) == "1":
+			return MCP.P1
+
 
 	
